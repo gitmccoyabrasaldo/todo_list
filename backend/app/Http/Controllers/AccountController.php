@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Account;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 
 
 class AccountController extends Controller
@@ -32,8 +33,8 @@ class AccountController extends Controller
             'first_name' => 'required|string|max:191',
             'last_name' => 'required|string|max:191',
             'email' => 'required|email|unique:accounts|max:191',
-            'password' => 'required|string|max:191',
-            'confirm_password' => 'required|string|max:191|same:password'
+            'password' => 'required|string|min:6',
+            'confirm_password' => 'required|string|min:6|same:password'
         ]);
 
         if($validator->fails()){
@@ -46,8 +47,8 @@ class AccountController extends Controller
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
                 'email' => $request->email,
-                'password' => $request->password,
-                'confirm_password' => $request->confirm_password
+                'password' => Hash::make($request->password),
+                // 'confirm_password' => $request->confirm_password
             ]);
         }
 

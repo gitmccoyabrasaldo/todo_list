@@ -15,7 +15,7 @@ class Account extends Model
         'first_name',
         'last_name',
         'email',
-        'password',
-        'confirm_password'
+        'password'
+        // 'confirm_password'
     ];
 }
